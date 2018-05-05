@@ -1,0 +1,142 @@
+set bootstrap:
+1. install bootstrap at the project folder: npm install --save bootstrap@3
+2. in app.module.ts; under imports: add: FormsModule
+3. in .angular-cli.json： under "styles": add: "../node_modules/bootstrap/dist/css/bootstrap.min.css",
+
+SECTION2: COMPONENT
+
+	CREAT COMPONENT MANUALLY:
+	1. creat folder under app
+	2. creat new html file: name.component.html
+	3. creat new ts file
+	4. creat new css file
+	5. import and add to app.module.ts
+	6. put into app.component.html
+
+	USE CLI TO CREAT NEW COMPONENT
+	1. ng generate component <component name>  eg: ng generate component servers
+	2. or: ng g c <component name>
+
+	COMPONENT DECORATORS:
+
+		HTML styling template (servers.component.ts):
+		--YOU CAN HAVE ONLY ONE TEMPLATE!!
+		1. templateURL: './servers.component.html',
+		2. template: '<app-server></app-server><app-server></app-server>',
+		3. template: `
+		  <app-server></app-server>
+		  <app-server></app-server>`,
+
+		CSS styling template (app.component.ts):
+		--YOU CAN HAVE MULTIPLE STYLES
+		1. styleUrls: ['./app.component.css']
+		2. styles: [`
+		    h3 {
+		      color: dodgerblue;
+		    }
+		  `]
+
+		SELECTOR:
+			--servers.component.ts
+			--app.component.html
+		1. element selector: selector:'app-servers',
+			html: <app-servers></app-servers>
+		2. attribute selector: selector: '[app-servers]'
+			html: <div app-servers></div>
+		3. class selector: selector: '.app-servers'
+			html: <div class="app-servers">
+
+
+SECTION3: DATA BINDING
+
+	type script code -- HTML
+
+		OUTPUT DATA
+		1. string interpolation {{ data }}
+		2. property binding [property]="data"
+
+		REACT TO EVENTS:
+		event binding (event)="expression"
+
+		TWO WAY BINDING:
+		[(ngModel)]="data"
+
+
+** Don't bind property binding with string interpolation *******
+
+	STRING INTERPOLATION: {{ string }} or {{ function() }}
+	--http:
+		<p>{{ 'server' }} with ID {{ serverId }} is {{ serverStatus }}</p>
+	--ts:
+		export class ServerComponent {
+		  serverId: number = 10;
+		  serverStatus: string = 'offline';
+		}
+	//can also use function
+
+	PROPERTY BINDING: [property]="attribute" or "function()" 
+	--danamicly bind property in ts file
+	--html:
+		<button 
+		class="btn btn-primary" 
+		[disabled]="allowNewServer">Add Server</button>
+	--ts:
+		allowNewServer = false;
+		constructor() {
+		    setTimeout(() => {
+		      this.allowNewServer = true;
+		    }, 2000);
+		}
+
+	EVENT BINDING: ()=""
+	**** You can basically bind to all Properties and Events - a good idea is to console.log()  the element you're interested in to see which properties and events it offers.
+	**** The MDN (Mozilla Developer Network) offers nice lists of all properties and events of the element you're interested in. Googling for YOUR_ELEMENT properties  or YOUR_ELEMENT events  should yield nice results.
+
+	--html:
+		<button class="btn btn-primary" [disabled]="!allowNewServer" 
+		(click)="onCreateServer()">Add Server</button>
+	--ts:
+		export class ServersComponent implements OnInit {
+	  		serverCreationStatus = 'No server was created!';
+		  	onCreateServer() {
+		    	this.serverCreationStatus = 'Server was created!';
+		  	}
+		}
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
